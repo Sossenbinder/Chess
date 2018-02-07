@@ -6,12 +6,16 @@ namespace SFMLChess.Logic.BoardLogic
     {
         private readonly ChessColor m_color;
 
+        private readonly BoardPosition m_boardPosition;
+
         private ChessPiece m_chessPiece;
 
-        public Tile(ChessColor color)
+        public Tile(ChessColor color, int x, int y)
         {
             m_color = color;
             m_chessPiece = null;
+
+            m_boardPosition = new BoardPosition(y, x);
         }
 
         public void SetChessPiece(ChessPiece chessPiece)
@@ -27,6 +31,11 @@ namespace SFMLChess.Logic.BoardLogic
         public ChessPiece GetChessPiece()
         {
             return m_chessPiece;
+        }
+
+        public BoardPosition GetBoardPosition()
+        {
+            return m_boardPosition;
         }
 
     }

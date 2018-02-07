@@ -16,8 +16,15 @@ namespace SFMLChess.MainWindow
 
         public static readonly Color CHESSBOARDLINECOLOR = Color.Black;
 
+        public static readonly int CHESSBOARDTILESIZE = 60;
+
         public static readonly Color CHESSBOARDTILECOLOR = new Color(128, 128, 128);
 
         public static readonly Vector2f CHESSBOARDTOPLEFT = new Vector2f(20, 20);
+
+        public static readonly float CHESSBOARDBORDERLENGTH = 8 * CHESSBOARDTILESIZE;
+
+        public static readonly Vector2f CHESSBOARDBOTTOMRIGHT = new Vector2f(CHESSBOARDTOPLEFT.X + CHESSBOARDBORDERLENGTH, CHESSBOARDTOPLEFT.Y + CHESSBOARDBORDERLENGTH);
+
     }
 }

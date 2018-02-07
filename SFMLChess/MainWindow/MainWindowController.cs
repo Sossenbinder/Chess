@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFMLChess.MainWindow;
 using SFML.Graphics;
 using SFML.Window;
+using SFMLChess.Logic.BoardLogic;
 
 namespace SFMLChess.MainWindow
 {
@@ -67,7 +68,11 @@ namespace SFMLChess.MainWindow
 
             if (mouseEventArgs.Button == Mouse.Button.Left)
             {
-
+                if (m_mainWindowModel.IsMouseClickInChessField(mouseEventArgs.X, mouseEventArgs.Y))
+                {
+                    var tile = m_mainWindowModel.GetTileForMousePos(mouseEventArgs.X, mouseEventArgs.Y);
+                    m_mainWindowModel.GetGameState().GetBoard().HandleSelectTile(tile);
+                }
             }
         }
     }

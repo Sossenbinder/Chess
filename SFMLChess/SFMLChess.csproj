@@ -87,6 +87,7 @@
     <Compile Include="ChessPieces\Rook.cs" />
     <Compile Include="ChessColor.cs" />
     <Compile Include="Logic\BoardLogic\Board.cs" />
+    <Compile Include="Logic\BoardLogic\BoardPosition.cs" />
     <Compile Include="Logic\GameState.cs" />
     <Compile Include="Logic\Player.cs" />
     <Compile Include="Logic\BoardLogic\Tile.cs" />

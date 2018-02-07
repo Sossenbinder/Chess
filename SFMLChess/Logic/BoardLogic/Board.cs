@@ -4,6 +4,8 @@ namespace SFMLChess.Logic.BoardLogic
 {
     public class Board
     {
+        private Tile m_selectedTile;
+
         private Tile[,] m_board;
 
         public Board()
@@ -23,11 +25,11 @@ namespace SFMLChess.Logic.BoardLogic
                 {
                     if ((blackFirstRow && (j % 2 == 0)) || (!blackFirstRow && (j % 2 == 1)))
                     {
-                        m_board[i,j] = new Tile(ChessColor.Black);
+                        m_board[i,j] = new Tile(ChessColor.Black, i, j);
                     }
                     else
                     {
-                        m_board[i,j] = new Tile(ChessColor.White);
+                        m_board[i,j] = new Tile(ChessColor.White, i, j);
                     }
                 }
             }
@@ -72,6 +74,21 @@ namespace SFMLChess.Logic.BoardLogic
         public ChessPiece GetChessPieceForSpecificTile(int x, int y)
         {
             return m_board[x, y].GetChessPiece();
+        }
+
+        public Tile GetTileAtPos(int x, int y)
+        {
+            return m_board[y, x];
+        }
+
+        public void HandleSelectTile(Tile tile)
+        {
+            m_selectedTile = m_selectedTile == tile ? null : tile;
+        }
+
+        public Tile GetSelectedTile()
+        {
+            return m_selectedTile;
         }
     }
 }
