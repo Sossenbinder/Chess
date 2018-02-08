@@ -29,7 +29,7 @@ namespace SFMLChess.MainWindow
             var board = m_gameState.GetBoard();
             var chessPiece = board.GetChessPieceForSpecificTile(x, y);
             
-            return chessPiece?.LoadTexture();
+            return chessPiece?.GetTexture();
         }
 
         public ChessColor GetBoardColorForTile(int x, int y)

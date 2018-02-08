@@ -13,6 +13,7 @@ namespace SFMLChess.ChessPieces
             : base(color)
         {
             m_chessPieceName = "Knight";
+            LoadTexture();
         }
     }
 }

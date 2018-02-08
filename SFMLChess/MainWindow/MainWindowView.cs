@@ -58,28 +58,9 @@ namespace SFMLChess.MainWindow
         private void DrawGameFieldBorder()
         {
             var topLeftPoint = MainWindowMetaData.CHESSBOARDTOPLEFT;
-            var topRightPoint = new Vector2f(topLeftPoint.X + MainWindowMetaData.CHESSBOARDBORDERLENGTH, topLeftPoint.Y);
-            var bottomLeftPoint = new Vector2f(topLeftPoint.X, topLeftPoint.Y + MainWindowMetaData.CHESSBOARDBORDERLENGTH);
             var bottomRightPoint = MainWindowMetaData.CHESSBOARDBOTTOMRIGHT;
 
-            //leftBorder
-            Vertex[] border = new Vertex[2] {
-                new Vertex(topLeftPoint, MainWindowMetaData.CHESSBOARDLINECOLOR),
-                new Vertex(bottomLeftPoint, MainWindowMetaData.CHESSBOARDLINECOLOR)
-            };
-            m_window.Draw(border, PrimitiveType.Lines);
-
-            //topBorder
-            border[1] = new Vertex(topRightPoint, MainWindowMetaData.CHESSBOARDLINECOLOR);
-            m_window.Draw(border, PrimitiveType.Lines);
-
-            //rightBorder
-            border[0] = new Vertex(bottomRightPoint, MainWindowMetaData.CHESSBOARDLINECOLOR);
-            m_window.Draw(border, PrimitiveType.Lines);
-
-            //bottomBorder
-            border[1] = new Vertex(bottomLeftPoint, MainWindowMetaData.CHESSBOARDLINECOLOR);
-            m_window.Draw(border, PrimitiveType.Lines);
+            DrawBorder(topLeftPoint, bottomRightPoint, MainWindowMetaData.CHESSBOARDLINECOLOR);
         }
 
         private void DrawGameFieldTiles()
@@ -130,16 +111,49 @@ namespace SFMLChess.MainWindow
         {
             var rectSize = new Vector2f(MainWindowMetaData.CHESSBOARDTILESIZE, MainWindowMetaData.CHESSBOARDTILESIZE);
 
-            var position = new Vector2f(MainWindowMetaData.CHESSBOARDTOPLEFT.X + tile.GetBoardPosition().X * MainWindowMetaData.CHESSBOARDTILESIZE,
+            var selectedPosition = new Vector2f(MainWindowMetaData.CHESSBOARDTOPLEFT.X + tile.GetBoardPosition().X * MainWindowMetaData.CHESSBOARDTILESIZE,
                 MainWindowMetaData.CHESSBOARDTOPLEFT.Y + tile.GetBoardPosition().Y * MainWindowMetaData.CHESSBOARDTILESIZE);
 
-            var rect = new RectangleShape(rectSize)
+            var selectedRect = new RectangleShape(rectSize)
             {
-                Position = position,
-                FillColor = Color.Yellow
+                Position = selectedPosition,
+                FillColor = new Color(172, 143, 0)
             };
 
-            m_window.Draw(rect);
+            DrawBorder(new Vector2f(selectedPosition.X, selectedPosition.Y - 1),
+                new Vector2f(selectedPosition.X + rectSize.X + 1, selectedPosition.Y + rectSize.Y),
+                MainWindowMetaData.CHESSBOARDLINECOLOR);
+
+            m_window.Draw(selectedRect);
+        }
+
+        //HELPER FUNCTIONS
+
+        private void DrawBorder(Vector2f topLeft, Vector2f bottomRight, Color borderColor)
+        {
+            var topLeftPoint = new Vector2f(topLeft.X, topLeft.Y);
+            var topRightPoint = new Vector2f(bottomRight.X, topLeft.Y);
+            var bottomLeftPoint = new Vector2f(topLeftPoint.X, bottomRight.Y);
+            var bottomRightPoint = new Vector2f(bottomRight.X, bottomRight.Y);
+
+            //leftBorder
+            Vertex[] border = {
+                new Vertex(topLeftPoint, borderColor),
+                new Vertex(bottomLeftPoint, borderColor)
+            };
+            m_window.Draw(border, PrimitiveType.Lines);
+
+            //topBorder
+            border[1] = new Vertex(topRightPoint, borderColor);
+            m_window.Draw(border, PrimitiveType.Lines);
+
+            //rightBorder
+            border[0] = new Vertex(bottomRightPoint, borderColor);
+            m_window.Draw(border, PrimitiveType.Lines);
+
+            //bottomBorder
+            border[1] = new Vertex(bottomLeftPoint, borderColor);
+            m_window.Draw(border, PrimitiveType.Lines);
         }
     }
 }

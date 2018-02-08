@@ -14,6 +14,7 @@ namespace SFMLChess.ChessPieces
             : base(color)
         {
             m_chessPieceName = "Rook";
+            LoadTexture();
         }
     }
 }
