@@ -82,6 +82,7 @@
     <Compile Include="ChessPieces\ChessPiece.cs" />
     <Compile Include="ChessPieces\King.cs" />
     <Compile Include="ChessPieces\Knight.cs" />
+    <Compile Include="ChessPieces\Moveset.cs" />
     <Compile Include="ChessPieces\Pawn.cs" />
     <Compile Include="ChessPieces\Queen.cs" />
     <Compile Include="ChessPieces\Rook.cs" />

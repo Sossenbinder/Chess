@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using System;
+using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using SFMLChess.Logic;
@@ -76,9 +77,7 @@ namespace SFMLChess.MainWindow
                     var rect = new RectangleShape(rectSize)
                     {
                         Position = position,
-                        FillColor = (m_mainWindowModel.GetBoardColorForTile(i, j) == ChessColor.Black)
-                            ? MainWindowMetaData.CHESSBOARDTILECOLOR
-                            : Color.White
+                        FillColor = ResolveChessColor(m_mainWindowModel.GetBoardColorForTile(i, j))
                     };
 
 
@@ -117,7 +116,7 @@ namespace SFMLChess.MainWindow
             var selectedRect = new RectangleShape(rectSize)
             {
                 Position = selectedPosition,
-                FillColor = new Color(172, 143, 0)
+                FillColor = ResolveChessColor(tile.GetChessColor())
             };
 
             DrawBorder(new Vector2f(selectedPosition.X, selectedPosition.Y - 1),
@@ -154,6 +153,23 @@ namespace SFMLChess.MainWindow
             //bottomBorder
             border[1] = new Vertex(bottomLeftPoint, borderColor);
             m_window.Draw(border, PrimitiveType.Lines);
+        }
+
+        private Color ResolveChessColor(ChessColor gameColor)
+        {
+            switch (gameColor)
+            {
+                case ChessColor.Black:
+                    return MainWindowMetaData.CHESSBOARDTILECOLOR;
+                case ChessColor.White:
+                    return Color.White;
+                case ChessColor.Selected:
+                    return new Color(172, 143, 0);
+                case ChessColor.Possible:
+                    return Color.Cyan;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gameColor), gameColor, null);
+            }
         }
     }
 }

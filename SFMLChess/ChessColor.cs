@@ -9,6 +9,8 @@ namespace SFMLChess
     public enum ChessColor
     {
         White,
-        Black
+        Black,
+        Selected,
+        Possible
     }
 }

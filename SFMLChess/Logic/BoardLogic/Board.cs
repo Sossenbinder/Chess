@@ -83,12 +83,49 @@ namespace SFMLChess.Logic.BoardLogic
 
         public void HandleSelectTile(Tile tile)
         {
+            if (m_selectedTile != null)
+            {
+                m_selectedTile.SetSelectionState(false);
+                ClearMoveableState();
+            }
+
             m_selectedTile = m_selectedTile == tile ? null : tile;
+
+            if (m_selectedTile != null)
+            {
+                m_selectedTile.SetSelectionState(true);
+
+                if (m_selectedTile?.GetChessPiece() != null)
+                {
+                    ApplyMovesetToBoard();
+                }
+            }
         }
 
         public Tile GetSelectedTile()
         {
             return m_selectedTile;
+        }
+
+        private void ClearMoveableState()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    m_board[i, j].SetMoveableState(false);
+                }
+            }
+        }
+
+        private void ApplyMovesetToBoard()
+        {
+            var moveSet = m_selectedTile.GetChessPiece().GetMoveSetFromTile(m_selectedTile);
+
+            foreach(BoardPosition boardPos in moveSet.GetMoveSetPositions())
+            {
+                GetTileAtPos(boardPos.X, boardPos.Y).SetMoveableState(true);
+            }
         }
     }
 }

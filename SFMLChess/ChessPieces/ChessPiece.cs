@@ -27,7 +27,7 @@ namespace SFMLChess.ChessPieces
             m_texture = new Texture(textureStream);
         }
 
-        public abstract MoveSet GetMoveSetFromTile(Tile tile, Board board);
+        public abstract Moveset GetMoveSetFromTile(Tile tile);
 
         public Texture GetTexture()
         {

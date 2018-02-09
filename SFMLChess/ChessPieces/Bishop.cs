@@ -16,21 +16,57 @@ namespace SFMLChess.ChessPieces
             LoadTexture();
         }
 
-        public override MoveSet GetMoveSetFromTile(Tile tile, Board board)
+        public override Moveset GetMoveSetFromTile(Tile tile)
         {
             var boardPosition = tile.GetBoardPosition();
             var possiblePositions = new List<BoardPosition>();
 
-            int x = boardPosition.X;
-            int y = boardPosition.Y;
+            var x = boardPosition.X;
+            var y = boardPosition.Y;
 
-            while (x >= 0 && y >= 0)
+            while (x > 0 && y > 0)
             {
-                
+                --x;
+                --y;
+                possiblePositions.Add(new BoardPosition(x, y));
             }
 
+            x = boardPosition.X;
+            y = boardPosition.Y;
 
-            return new MoveSet(null);
+            while (x > 0 && y < 7)
+            {
+                --x;
+                ++y;
+                possiblePositions.Add(new BoardPosition(x, y));
+            }
+
+            x = boardPosition.X;
+            y = boardPosition.Y;
+
+            while (x < 7 && y < 7)
+            {
+                ++x;
+                ++y;
+                possiblePositions.Add(new BoardPosition(x, y));
+            }
+
+            x = boardPosition.X;
+            y = boardPosition.Y;
+
+            while (x < 7 && y > 0)
+            {
+                ++x;
+                --y;
+                possiblePositions.Add(new BoardPosition(x, y));
+            }
+
+            x = boardPosition.X;
+            y = boardPosition.Y;
+
+            possiblePositions.Add(new BoardPosition(x, y));
+
+            return new Moveset(possiblePositions);
         }
     }
 }

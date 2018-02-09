@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFMLChess.Logic.BoardLogic;
 
 namespace SFMLChess.ChessPieces
 {
@@ -14,6 +15,11 @@ namespace SFMLChess.ChessPieces
         {
             m_chessPieceName = "Knight";
             LoadTexture();
+        }
+
+        public override Moveset GetMoveSetFromTile(Tile tile)
+        {
+            throw new NotImplementedException();
         }
     }
 }

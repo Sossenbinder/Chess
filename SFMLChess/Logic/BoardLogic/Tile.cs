@@ -10,6 +10,10 @@ namespace SFMLChess.Logic.BoardLogic
 
         private ChessPiece m_chessPiece;
 
+        private bool m_selected;
+
+        private bool m_moveable;
+
         public Tile(ChessColor color, int x, int y)
         {
             m_color = color;
@@ -25,6 +29,16 @@ namespace SFMLChess.Logic.BoardLogic
 
         public ChessColor GetChessColor()
         {
+            if (m_selected)
+            {
+                return ChessColor.Selected;
+            }
+
+            if (m_moveable)
+            {
+                return ChessColor.Possible;
+            }
+
             return m_color;
         }
 
@@ -33,10 +47,24 @@ namespace SFMLChess.Logic.BoardLogic
             return m_chessPiece;
         }
 
+        public Moveset GetChessPieceMoveSet(Board board)
+        {
+            return m_chessPiece.GetMoveSetFromTile(this);
+        }
+
         public BoardPosition GetBoardPosition()
         {
             return m_boardPosition;
         }
 
+        public void SetSelectionState(bool selected)
+        {
+            m_selected = selected;
+        }
+
+        public void SetMoveableState(bool moveable)
+        {
+            m_moveable = moveable;
+        }
     }
 }
