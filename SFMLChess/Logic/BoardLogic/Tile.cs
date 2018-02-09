@@ -12,8 +12,6 @@ namespace SFMLChess.Logic.BoardLogic
 
         private bool m_selected;
 
-        private bool m_moveable;
-
         public Tile(ChessColor color, int x, int y)
         {
             m_color = color;
@@ -32,11 +30,6 @@ namespace SFMLChess.Logic.BoardLogic
             if (m_selected)
             {
                 return ChessColor.Selected;
-            }
-
-            if (m_moveable)
-            {
-                return ChessColor.Possible;
             }
 
             return m_color;
@@ -60,11 +53,6 @@ namespace SFMLChess.Logic.BoardLogic
         public void SetSelectionState(bool selected)
         {
             m_selected = selected;
-        }
-
-        public void SetMoveableState(bool moveable)
-        {
-            m_moveable = moveable;
         }
     }
 }

@@ -11,6 +11,6 @@ namespace SFMLChess
         White,
         Black,
         Selected,
-        Possible
+        ValidMove
     }
 }

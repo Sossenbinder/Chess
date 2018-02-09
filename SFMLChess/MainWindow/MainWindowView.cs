@@ -5,6 +5,7 @@ using SFML.Window;
 using SFMLChess.Logic;
 using SFMLChess.Logic.BoardLogic;
 using SFMLChess.MainWindow;
+using System.Collections.Generic;
 
 namespace SFMLChess.MainWindow
 {
@@ -48,6 +49,7 @@ namespace SFMLChess.MainWindow
                 if (tile != null)
                 {
                     DrawSelectedTile(tile);
+                    DrawValidMovePositions(gameState.GetBoard().GetValidMovePositions());
                 }
 
                 DrawGameFieldChessPieces();
@@ -80,11 +82,9 @@ namespace SFMLChess.MainWindow
                         FillColor = ResolveChessColor(m_mainWindowModel.GetBoardColorForTile(i, j))
                     };
 
-
                     m_window.Draw(rect);
                 }
             }
-
         }
 
         private void DrawGameFieldChessPieces()
@@ -126,6 +126,24 @@ namespace SFMLChess.MainWindow
             m_window.Draw(selectedRect);
         }
 
+        private void DrawValidMovePositions(List<BoardPosition> validMovePositions)
+        {
+            var rectSize = new Vector2f(MainWindowMetaData.CHESSBOARDTILESIZE, MainWindowMetaData.CHESSBOARDTILESIZE);
+
+            foreach(BoardPosition pos in validMovePositions)
+            {
+                var position = new Vector2f(MainWindowMetaData.CHESSBOARDTOPLEFT.X + pos.X * MainWindowMetaData.CHESSBOARDTILESIZE, MainWindowMetaData.CHESSBOARDTOPLEFT.Y + pos.Y * MainWindowMetaData.CHESSBOARDTILESIZE);
+
+                var rect = new RectangleShape(rectSize)
+                {
+                    Position = position,
+                    FillColor = ResolveChessColor(ChessColor.ValidMove)
+                };
+
+                m_window.Draw(rect);
+            }
+        }
+
         //HELPER FUNCTIONS
 
         private void DrawBorder(Vector2f topLeft, Vector2f bottomRight, Color borderColor)
@@ -165,7 +183,7 @@ namespace SFMLChess.MainWindow
                     return Color.White;
                 case ChessColor.Selected:
                     return new Color(172, 143, 0);
-                case ChessColor.Possible:
+                case ChessColor.ValidMove:
                     return Color.Cyan;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gameColor), gameColor, null);
