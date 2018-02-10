@@ -9,9 +9,14 @@ namespace SFMLChess.ChessPieces
     public abstract class ChessPiece
     {
         protected string m_chessPieceName;
+
         protected readonly ChessColor m_color;
+
         protected readonly string m_resourceLocation = "SFMLChess.Graphics.ChessPieces.";
+
         protected Texture m_texture;
+
+        protected bool m_didMove;
 
         protected ChessPiece(ChessColor color)
         {

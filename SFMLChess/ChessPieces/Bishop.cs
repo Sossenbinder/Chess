@@ -61,11 +61,6 @@ namespace SFMLChess.ChessPieces
                 possiblePositions.Add(new BoardPosition(x, y));
             }
 
-            x = boardPosition.X;
-            y = boardPosition.Y;
-
-            possiblePositions.Add(new BoardPosition(x, y));
-
             return new Moveset(possiblePositions);
         }
     }

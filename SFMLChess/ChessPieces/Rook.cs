@@ -19,7 +19,50 @@ namespace SFMLChess.ChessPieces
 
         public override Moveset GetMoveSetFromTile(Tile tile)
         {
-            throw new NotImplementedException();
+            var boardPosition = tile.GetBoardPosition();
+            var possiblePositions = new List<BoardPosition>();
+
+            var x = boardPosition.X;
+            var y = boardPosition.Y;
+
+            while (x > 0)
+            {
+                --x;
+
+                possiblePositions.Add(new BoardPosition(x, y));
+            }
+
+            x = boardPosition.X;
+            y = boardPosition.Y;
+
+            while (y > 0)
+            {
+                --y;
+
+                possiblePositions.Add(new BoardPosition(x, y));
+            }
+
+            x = boardPosition.X;
+            y = boardPosition.Y;
+
+            while (x < 7)
+            {
+                ++x;
+
+                possiblePositions.Add(new BoardPosition(x, y));
+            }
+
+            x = boardPosition.X;
+            y = boardPosition.Y;
+
+            while (y < 7)
+            {
+                ++y;
+
+                possiblePositions.Add(new BoardPosition(x, y));
+            }
+
+            return new Moveset(possiblePositions);
         }
     }
 }
