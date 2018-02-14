@@ -11,10 +11,13 @@ namespace SFMLChess.Logic.BoardLogic
         public int X;
         public int Y;
 
-        public BoardPosition(int x, int y)
+        public bool Beatable;
+
+        public BoardPosition(int x, int y, bool beatable = false)
         {
             X = x;
             Y = y;
+            Beatable = beatable;
         }
     }
 }

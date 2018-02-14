@@ -17,7 +17,7 @@ namespace SFMLChess.Logic.BoardLogic
             m_color = color;
             m_chessPiece = null;
 
-            m_boardPosition = new BoardPosition(y, x);
+            m_boardPosition = new BoardPosition(x, y);
         }
 
         public void SetChessPiece(ChessPiece chessPiece)
@@ -42,7 +42,7 @@ namespace SFMLChess.Logic.BoardLogic
 
         public Moveset GetChessPieceMoveSet(Board board)
         {
-            return m_chessPiece.GetMoveSetFromTile(this);
+            return m_chessPiece.GetMoveSetFromTile(this, board);
         }
 
         public BoardPosition GetBoardPosition()

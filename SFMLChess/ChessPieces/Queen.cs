@@ -16,10 +16,11 @@ namespace SFMLChess.ChessPieces
             LoadTexture();
         }
 
-        public override Moveset GetMoveSetFromTile(Tile tile)
+        public override Moveset GetMoveSetFromTile(Tile tile, Board board)
         {
             var boardPosition = tile.GetBoardPosition();
             var possiblePositions = new List<BoardPosition>();
+            var selectedChessPieceColor = tile.GetChessPiece().GetColor();
 
             var x = boardPosition.X;
             var y = boardPosition.Y;
@@ -27,6 +28,17 @@ namespace SFMLChess.ChessPieces
             while (x > 0)
             {
                 --x;
+
+                var chessPiece = board.GetChessPieceForSpecificTile(x, y);
+
+                if (chessPiece != null)
+                {
+                    if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
+                    {
+                        possiblePositions.Add(new BoardPosition(x, y, true));
+                    }
+                    break;
+                }
 
                 possiblePositions.Add(new BoardPosition(x, y));
             }
@@ -38,6 +50,17 @@ namespace SFMLChess.ChessPieces
             {
                 --y;
 
+                var chessPiece = board.GetChessPieceForSpecificTile(x, y);
+
+                if (chessPiece != null)
+                {
+                    if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
+                    {
+                        possiblePositions.Add(new BoardPosition(x, y, true));
+                    }
+                    break;
+                }
+
                 possiblePositions.Add(new BoardPosition(x, y));
             }
 
@@ -47,6 +70,17 @@ namespace SFMLChess.ChessPieces
             while (x < 7)
             {
                 ++x;
+
+                var chessPiece = board.GetChessPieceForSpecificTile(x, y);
+
+                if (chessPiece != null)
+                {
+                    if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
+                    {
+                        possiblePositions.Add(new BoardPosition(x, y, true));
+                    }
+                    break;
+                }
 
                 possiblePositions.Add(new BoardPosition(x, y));
             }
@@ -58,6 +92,17 @@ namespace SFMLChess.ChessPieces
             {
                 ++y;
 
+                var chessPiece = board.GetChessPieceForSpecificTile(x, y);
+
+                if (chessPiece != null)
+                {
+                    if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
+                    {
+                        possiblePositions.Add(new BoardPosition(x, y, true));
+                    }
+                    break;
+                }
+
                 possiblePositions.Add(new BoardPosition(x, y));
             }
 
@@ -68,6 +113,18 @@ namespace SFMLChess.ChessPieces
             {
                 --x;
                 --y;
+
+                var chessPiece = board.GetChessPieceForSpecificTile(x, y);
+
+                if (chessPiece != null)
+                {
+                    if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
+                    {
+                        possiblePositions.Add(new BoardPosition(x, y, true));
+                    }
+                    break;
+                }
+
                 possiblePositions.Add(new BoardPosition(x, y));
             }
 
@@ -78,6 +135,18 @@ namespace SFMLChess.ChessPieces
             {
                 --x;
                 ++y;
+
+                var chessPiece = board.GetChessPieceForSpecificTile(x, y);
+
+                if (chessPiece != null)
+                {
+                    if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
+                    {
+                        possiblePositions.Add(new BoardPosition(x, y, true));
+                    }
+                    break;
+                }
+
                 possiblePositions.Add(new BoardPosition(x, y));
             }
 
@@ -88,6 +157,18 @@ namespace SFMLChess.ChessPieces
             {
                 ++x;
                 ++y;
+
+                var chessPiece = board.GetChessPieceForSpecificTile(x, y);
+
+                if (chessPiece != null)
+                {
+                    if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
+                    {
+                        possiblePositions.Add(new BoardPosition(x, y, true));
+                    }
+                    break;
+                }
+
                 possiblePositions.Add(new BoardPosition(x, y));
             }
 
@@ -98,6 +179,18 @@ namespace SFMLChess.ChessPieces
             {
                 ++x;
                 --y;
+
+                var chessPiece = board.GetChessPieceForSpecificTile(x, y);
+
+                if (chessPiece != null)
+                {
+                    if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
+                    {
+                        possiblePositions.Add(new BoardPosition(x, y, true));
+                    }
+                    break;
+                }
+
                 possiblePositions.Add(new BoardPosition(x, y));
             }
 

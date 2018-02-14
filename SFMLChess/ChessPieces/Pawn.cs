@@ -16,7 +16,7 @@ namespace SFMLChess.ChessPieces
             LoadTexture();
         }
 
-        public override Moveset GetMoveSetFromTile(Tile tile)
+        public override Moveset GetMoveSetFromTile(Tile tile, Board board)
         {
             var boardPosition = tile.GetBoardPosition();
             var possiblePositions = new List<BoardPosition>();

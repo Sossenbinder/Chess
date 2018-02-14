@@ -17,10 +17,11 @@ namespace SFMLChess.ChessPieces
             LoadTexture();
         }
 
-        public override Moveset GetMoveSetFromTile(Tile tile)
+        public override Moveset GetMoveSetFromTile(Tile tile, Board board)
         {
             var boardPosition = tile.GetBoardPosition();
             var possiblePositions = new List<BoardPosition>();
+            var selectedChessPieceColor = tile.GetChessPiece().GetColor();
 
             var x = boardPosition.X;
             var y = boardPosition.Y;
@@ -28,49 +29,120 @@ namespace SFMLChess.ChessPieces
             //Up left
             if (x - 1 >= 0 && y - 2 > 0)
             {
-                possiblePositions.Add(new BoardPosition(x - 1, y - 2));
+                var chessPiece = board.GetChessPieceForSpecificTile(x - 1, y - 2);
+                
+                if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
+                {
+                    possiblePositions.Add(new BoardPosition(x - 1, y - 2, true));
+                }
+                else {
+                    possiblePositions.Add(new BoardPosition(x - 1, y - 2));
+                }
             }
 
             //Up right
             if (x + 1 < 8 && y - 2 > 0)
             {
-                possiblePositions.Add(new BoardPosition(x + 1, y - 2));
+                var chessPiece = board.GetChessPieceForSpecificTile(x + 1, y - 2);
+
+                if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
+                {
+                    possiblePositions.Add(new BoardPosition(x + 1, y - 2, true));
+                }
+                else
+                {
+                    possiblePositions.Add(new BoardPosition(x + 1, y - 2));
+                }
             }
 
             //Left up
             if (x - 2 >= 0 && y - 1 > 0)
             {
-                possiblePositions.Add(new BoardPosition(x - 2, y - 1));
+                var chessPiece = board.GetChessPieceForSpecificTile(x - 2, y - 1);
+
+                if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
+                {
+                    possiblePositions.Add(new BoardPosition(x - 2, y - 1, true));
+                }
+                else
+                {
+                    possiblePositions.Add(new BoardPosition(x - 2, y - 1));
+                }
             }
 
             //Left down
             if (x - 2 >= 0 && y + 1 < 8)
             {
-                possiblePositions.Add(new BoardPosition(x - 2, y + 1));
+                var chessPiece = board.GetChessPieceForSpecificTile(x - 2, y + 1);
+
+                if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
+                {
+                    possiblePositions.Add(new BoardPosition(x - 2, y + 1, true));
+                }
+                else
+                {
+                    possiblePositions.Add(new BoardPosition(x - 2, y + 1));
+                }
             }
 
             //Down left
             if (x - 1 >= 0 && y + 2 < 8)
             {
-                possiblePositions.Add(new BoardPosition(x - 1, y + 2));
+                var chessPiece = board.GetChessPieceForSpecificTile(x - 1, y + 2);
+
+                if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
+                {
+                    possiblePositions.Add(new BoardPosition(x - 1, y + 2, true));
+                }
+                else
+                {
+                    possiblePositions.Add(new BoardPosition(x - 1, y + 2));
+                }
             }
 
             //Down right
             if (x + 1 < 8 && y + 2 < 8)
             {
-                possiblePositions.Add(new BoardPosition(x + 1, y + 2));
+                var chessPiece = board.GetChessPieceForSpecificTile(x + 1, y + 2);
+
+                if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
+                {
+                    possiblePositions.Add(new BoardPosition(x + 1, y + 2, true));
+                }
+                else
+                {
+                    possiblePositions.Add(new BoardPosition(x + 1, y + 2));
+                }
             }
 
             //Right up
             if (x + 2 < 8 && y - 1 > 0)
             {
-                possiblePositions.Add(new BoardPosition(x + 2, y - 1));
+                var chessPiece = board.GetChessPieceForSpecificTile(x + 2, y - 1);
+
+                if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
+                {
+                    possiblePositions.Add(new BoardPosition(x + 2, y - 1, true));
+                }
+                else
+                {
+                    possiblePositions.Add(new BoardPosition(x + 2, y - 1));
+                }
             }
 
             //Right down
             if (x + 2 < 8 && y + 1 < 8)
             {
-                possiblePositions.Add(new BoardPosition(x + 2, y + 1));
+                var chessPiece = board.GetChessPieceForSpecificTile(x + 2, y + 1);
+
+                if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
+                {
+                    possiblePositions.Add(new BoardPosition(x + 2, y + 1, true));
+                }
+                else
+                {
+                    possiblePositions.Add(new BoardPosition(x + 2, y + 1));
+                }
             }
 
             return new Moveset(possiblePositions);

@@ -70,16 +70,16 @@ namespace SFMLChess.MainWindow
         {
             var rectSize = new Vector2f(MainWindowMetaData.CHESSBOARDTILESIZE, MainWindowMetaData.CHESSBOARDTILESIZE);
 
-            for (var i = 0; i < 8; ++i)
+            for (var x = 0; x < 8; ++x)
             {
-                for (var j = 0; j < 8; ++j)
+                for (var y = 0; y < 8; ++y)
                 {
-                    var position = new Vector2f(MainWindowMetaData.CHESSBOARDTOPLEFT.X + j * MainWindowMetaData.CHESSBOARDTILESIZE, MainWindowMetaData.CHESSBOARDTOPLEFT.Y + i * MainWindowMetaData.CHESSBOARDTILESIZE);
+                    var position = new Vector2f(MainWindowMetaData.CHESSBOARDTOPLEFT.X + x * MainWindowMetaData.CHESSBOARDTILESIZE, MainWindowMetaData.CHESSBOARDTOPLEFT.Y + y * MainWindowMetaData.CHESSBOARDTILESIZE);
 
                     var rect = new RectangleShape(rectSize)
                     {
                         Position = position,
-                        FillColor = ResolveChessColor(m_mainWindowModel.GetBoardColorForTile(i, j))
+                        FillColor = ResolveChessColor(m_mainWindowModel.GetBoardColorForTile(x, y))
                     };
 
                     m_window.Draw(rect);
@@ -91,14 +91,14 @@ namespace SFMLChess.MainWindow
         {
             var topLeft = MainWindowMetaData.CHESSBOARDTOPLEFT;
 
-            for (var i = 0; i < 8; ++i)
+            for (var x = 0; x < 8; ++x)
             {
-                for (var j = 0; j < 8; ++j)
+                for (var y = 0; y < 8; ++y)
                 {
                     var chessPieceSprite = new Sprite
                     {
-                        Texture = m_mainWindowModel.GetTextureForTile(i, j),
-                        Position = new Vector2f(topLeft.X + j * MainWindowMetaData.CHESSBOARDTILESIZE, topLeft.Y + i * MainWindowMetaData.CHESSBOARDTILESIZE)
+                        Texture = m_mainWindowModel.GetTextureForTile(x, y),
+                        Position = new Vector2f(topLeft.X + x * MainWindowMetaData.CHESSBOARDTILESIZE, topLeft.Y + y * MainWindowMetaData.CHESSBOARDTILESIZE)
                     };
 
                     m_window.Draw(chessPieceSprite);
@@ -137,7 +137,7 @@ namespace SFMLChess.MainWindow
                 var rect = new RectangleShape(rectSize)
                 {
                     Position = position,
-                    FillColor = ResolveChessColor(ChessColor.ValidMove)
+                    FillColor = ResolveChessColor(pos.Beatable ? ChessColor.Beatable : ChessColor.ValidMove)
                 };
 
                 m_window.Draw(rect);
@@ -185,6 +185,8 @@ namespace SFMLChess.MainWindow
                     return new Color(172, 143, 0);
                 case ChessColor.ValidMove:
                     return Color.Cyan;
+                case ChessColor.Beatable:
+                    return Color.Red;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gameColor), gameColor, null);
             }

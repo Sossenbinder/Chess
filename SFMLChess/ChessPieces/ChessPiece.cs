@@ -32,11 +32,28 @@ namespace SFMLChess.ChessPieces
             m_texture = new Texture(textureStream);
         }
 
-        public abstract Moveset GetMoveSetFromTile(Tile tile);
+        protected bool CheckIfBeatable(ChessPiece targetChessPiece, ChessColor selectedChessPieceColor)
+        {
+            if (targetChessPiece != null)
+            {
+                if (!targetChessPiece.GetColor().Equals(selectedChessPieceColor))
+                {
+                    return true;
+                }                
+            }
+            return false;
+        }
+
+        public abstract Moveset GetMoveSetFromTile(Tile tile, Board board);
 
         public Texture GetTexture()
         {
             return m_texture;
+        }
+
+        public ChessColor GetColor()
+        {
+            return m_color;
         }
     }
 }

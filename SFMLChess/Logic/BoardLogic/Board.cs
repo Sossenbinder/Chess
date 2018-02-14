@@ -10,7 +10,7 @@ namespace SFMLChess.Logic.BoardLogic
         private Tile[,] m_board;
 
         private List<BoardPosition> m_validMovePositions = new List<BoardPosition>();
-
+        
         public Board()
         {
             ResetBoard();
@@ -41,31 +41,34 @@ namespace SFMLChess.Logic.BoardLogic
             ChessColor bottomColor = isWhiteTop ? ChessColor.Black : ChessColor.White;
             
             m_board[0, 0].SetChessPiece(new Rook(topColor));
-            m_board[0, 1].SetChessPiece(new Knight(topColor));
-            m_board[0, 2].SetChessPiece(new Bishop(topColor));
-            m_board[0, 3].SetChessPiece(new Queen(topColor));
-            m_board[0, 4].SetChessPiece(new King(topColor));
-            m_board[0, 5].SetChessPiece(new Bishop(topColor));
-            m_board[0, 6].SetChessPiece(new Knight(topColor));
-            m_board[0, 7].SetChessPiece(new Rook(topColor));
+            m_board[1, 0].SetChessPiece(new Knight(topColor));
+            m_board[2, 0].SetChessPiece(new Bishop(topColor));
+            m_board[3, 0].SetChessPiece(new Queen(topColor));
+            m_board[4, 0].SetChessPiece(new King(topColor));
+            m_board[5, 0].SetChessPiece(new Bishop(topColor));
+            m_board[6, 0].SetChessPiece(new Knight(topColor));
+            m_board[7, 0].SetChessPiece(new Rook(topColor));
 
             for (var i = 0; i < 8; ++i)
             {
-                m_board[1, i].SetChessPiece(new Pawn(topColor));
+                m_board[i, 1].SetChessPiece(new Pawn(topColor));
             }
 
             for (var i = 0; i < 8; ++i)
             {
-                m_board[6, i].SetChessPiece(new Pawn(bottomColor));
+                m_board[i, 6].SetChessPiece(new Pawn(topColor));
+                //m_board[i, 6].SetChessPiece(new Pawn(bottomColor));                
             }
 
-            m_board[7, 0].SetChessPiece(new Rook(bottomColor));
-            m_board[7, 1].SetChessPiece(new Knight(bottomColor));
-            m_board[7, 2].SetChessPiece(new Bishop(bottomColor));
-            m_board[7, 3].SetChessPiece(new Queen(bottomColor));
-            m_board[7, 4].SetChessPiece(new King(bottomColor));
-            m_board[7, 5].SetChessPiece(new Bishop(bottomColor));
-            m_board[7, 6].SetChessPiece(new Knight(bottomColor));
+            m_board[5, 4].SetChessPiece(new Knight(bottomColor));
+
+            m_board[0, 7].SetChessPiece(new Rook(bottomColor));
+            m_board[1, 7].SetChessPiece(new Knight(bottomColor));
+            m_board[2, 7].SetChessPiece(new Bishop(bottomColor));
+            m_board[3, 7].SetChessPiece(new Queen(bottomColor));
+            m_board[4, 7].SetChessPiece(new King(bottomColor));
+            m_board[5, 7].SetChessPiece(new Bishop(bottomColor));
+            m_board[6, 7].SetChessPiece(new Knight(bottomColor));
             m_board[7, 7].SetChessPiece(new Rook(bottomColor));
         }
 
@@ -81,7 +84,7 @@ namespace SFMLChess.Logic.BoardLogic
 
         public Tile GetTileAtPos(int x, int y)
         {
-            return m_board[y, x];
+            return m_board[x, y];
         }
 
         public void HandleSelectTile(Tile tile)
@@ -112,7 +115,8 @@ namespace SFMLChess.Logic.BoardLogic
 
         private void ApplyMovesetToBoard()
         {
-            var moveSet = m_selectedTile.GetChessPiece().GetMoveSetFromTile(m_selectedTile);
+            var selectedChessPiece = m_selectedTile.GetChessPiece();
+            var moveSet = selectedChessPiece.GetMoveSetFromTile(m_selectedTile, this);
 
             foreach(BoardPosition boardPos in moveSet.GetMoveSetPositions())
             {
