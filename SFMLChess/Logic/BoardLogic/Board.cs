@@ -56,11 +56,8 @@ namespace SFMLChess.Logic.BoardLogic
 
             for (var i = 0; i < 8; ++i)
             {
-                m_board[i, 6].SetChessPiece(new Pawn(topColor));
-                //m_board[i, 6].SetChessPiece(new Pawn(bottomColor));                
+                m_board[i, 6].SetChessPiece(new Pawn(bottomColor));
             }
-
-            m_board[5, 4].SetChessPiece(new Knight(bottomColor));
 
             m_board[0, 7].SetChessPiece(new Rook(bottomColor));
             m_board[1, 7].SetChessPiece(new Knight(bottomColor));
@@ -74,16 +71,29 @@ namespace SFMLChess.Logic.BoardLogic
 
         public ChessColor GetBoardColorForSpecificTile(int x, int y)
         {
+            if (x < 0 || x > 7)
+            {
+                return ChessColor.White;
+            }
             return m_board[x, y].GetChessColor();
         }
 
         public ChessPiece GetChessPieceForSpecificTile(int x, int y)
         {
+            if(x < 0 || x > 7)
+            {
+                return null;
+            }
+
             return m_board[x, y].GetChessPiece();
         }
 
         public Tile GetTileAtPos(int x, int y)
         {
+            if (x < 0 || x > 7)
+            {
+                return null;
+            }
             return m_board[x, y];
         }
 
@@ -91,8 +101,14 @@ namespace SFMLChess.Logic.BoardLogic
         {
             if (m_selectedTile != null)
             {
-                m_selectedTile.SetSelectionState(false);
-                m_validMovePositions.Clear();
+                if(IsNewSelectionMovable(tile))
+                {
+                    PerformMove(tile);
+                    ClearSelection();
+                    return;
+                }
+                
+                ClearSelection();
             }
 
             m_selectedTile = m_selectedTile == tile ? null : tile;
@@ -113,6 +129,11 @@ namespace SFMLChess.Logic.BoardLogic
             return m_selectedTile;
         }
 
+        public List<BoardPosition> GetValidMovePositions()
+        {
+            return m_validMovePositions;
+        }
+
         private void ApplyMovesetToBoard()
         {
             var selectedChessPiece = m_selectedTile.GetChessPiece();
@@ -124,9 +145,44 @@ namespace SFMLChess.Logic.BoardLogic
             }
         }
 
-        public List<BoardPosition> GetValidMovePositions()
+        private void ClearSelection()
         {
-            return m_validMovePositions;
+            m_selectedTile.SetSelectionState(false);
+            m_validMovePositions.Clear();
+        }
+
+        private bool IsNewSelectionMovable(Tile tile)
+        {
+            var tileBoardPos = tile.GetBoardPosition();
+            var tileX = tileBoardPos.X;
+            var tileY = tileBoardPos.Y;
+
+            foreach (BoardPosition pos in m_validMovePositions)
+            {
+                if(pos.X == tileX && pos.Y == tileY)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void PerformMove(Tile tile)
+        {
+            var chessPieceToMove = m_selectedTile.GetChessPiece();
+            var previousChessPieceOnNewTile = tile.GetChessPiece();
+
+            m_selectedTile.SetChessPiece(null);
+
+            tile.SetChessPiece(chessPieceToMove);
+
+            chessPieceToMove.Move();
+
+            if (previousChessPieceOnNewTile != null)
+            {
+                //Move to beaten chesspieces
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ namespace SFMLChess.ChessPieces
             var y = boardPosition.Y;
 
             //Up left
-            if (x - 1 >= 0 && y - 2 > 0)
+            if (x - 1 >= 0 && y - 2 >= 0)
             {
                 var chessPiece = board.GetChessPieceForSpecificTile(x - 1, y - 2);
                 
@@ -35,13 +35,14 @@ namespace SFMLChess.ChessPieces
                 {
                     possiblePositions.Add(new BoardPosition(x - 1, y - 2, true));
                 }
-                else {
+                else if(chessPiece == null)
+                {
                     possiblePositions.Add(new BoardPosition(x - 1, y - 2));
                 }
             }
 
             //Up right
-            if (x + 1 < 8 && y - 2 > 0)
+            if (x + 1 < 8 && y - 2 >= 0)
             {
                 var chessPiece = board.GetChessPieceForSpecificTile(x + 1, y - 2);
 
@@ -49,14 +50,14 @@ namespace SFMLChess.ChessPieces
                 {
                     possiblePositions.Add(new BoardPosition(x + 1, y - 2, true));
                 }
-                else
+                else if (chessPiece == null)
                 {
                     possiblePositions.Add(new BoardPosition(x + 1, y - 2));
                 }
             }
 
             //Left up
-            if (x - 2 >= 0 && y - 1 > 0)
+            if (x - 2 >= 0 && y - 1 >= 0)
             {
                 var chessPiece = board.GetChessPieceForSpecificTile(x - 2, y - 1);
 
@@ -64,7 +65,7 @@ namespace SFMLChess.ChessPieces
                 {
                     possiblePositions.Add(new BoardPosition(x - 2, y - 1, true));
                 }
-                else
+                else if (chessPiece == null)
                 {
                     possiblePositions.Add(new BoardPosition(x - 2, y - 1));
                 }
@@ -79,7 +80,7 @@ namespace SFMLChess.ChessPieces
                 {
                     possiblePositions.Add(new BoardPosition(x - 2, y + 1, true));
                 }
-                else
+                else if (chessPiece == null)
                 {
                     possiblePositions.Add(new BoardPosition(x - 2, y + 1));
                 }
@@ -94,7 +95,7 @@ namespace SFMLChess.ChessPieces
                 {
                     possiblePositions.Add(new BoardPosition(x - 1, y + 2, true));
                 }
-                else
+                else if (chessPiece == null)
                 {
                     possiblePositions.Add(new BoardPosition(x - 1, y + 2));
                 }
@@ -109,14 +110,14 @@ namespace SFMLChess.ChessPieces
                 {
                     possiblePositions.Add(new BoardPosition(x + 1, y + 2, true));
                 }
-                else
+                else if (chessPiece == null)
                 {
                     possiblePositions.Add(new BoardPosition(x + 1, y + 2));
                 }
             }
 
             //Right up
-            if (x + 2 < 8 && y - 1 > 0)
+            if (x + 2 < 8 && y - 1 >= 0)
             {
                 var chessPiece = board.GetChessPieceForSpecificTile(x + 2, y - 1);
 
@@ -124,7 +125,7 @@ namespace SFMLChess.ChessPieces
                 {
                     possiblePositions.Add(new BoardPosition(x + 2, y - 1, true));
                 }
-                else
+                else if (chessPiece == null)
                 {
                     possiblePositions.Add(new BoardPosition(x + 2, y - 1));
                 }
@@ -139,7 +140,7 @@ namespace SFMLChess.ChessPieces
                 {
                     possiblePositions.Add(new BoardPosition(x + 2, y + 1, true));
                 }
-                else
+                else if (chessPiece == null)
                 {
                     possiblePositions.Add(new BoardPosition(x + 2, y + 1));
                 }

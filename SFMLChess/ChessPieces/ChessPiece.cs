@@ -46,6 +46,11 @@ namespace SFMLChess.ChessPieces
 
         public abstract Moveset GetMoveSetFromTile(Tile tile, Board board);
 
+        public void Move()
+        {
+            m_didMove = true;
+        }
+
         public Texture GetTexture()
         {
             return m_texture;

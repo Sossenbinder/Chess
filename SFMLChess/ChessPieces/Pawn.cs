@@ -20,6 +20,7 @@ namespace SFMLChess.ChessPieces
         {
             var boardPosition = tile.GetBoardPosition();
             var possiblePositions = new List<BoardPosition>();
+            var selectedChessPieceColor = tile.GetChessPiece().GetColor();
 
             var x = boardPosition.X;
             var y = boardPosition.Y;
@@ -49,7 +50,28 @@ namespace SFMLChess.ChessPieces
                 }
             }
 
+            CheckForBeatablePieces(boardPosition, selectedChessPieceColor, board, possiblePositions);
+
             return new Moveset(possiblePositions);
+        }
+
+        private void CheckForBeatablePieces(BoardPosition selectedBoardPosition, ChessColor selectedChessPieceColor, Board board, List<BoardPosition> possiblePositions)
+        {
+            var x = selectedBoardPosition.X;
+            var y = selectedBoardPosition.Y - (m_color == ChessColor.White ? 1 : - 1);
+
+            var leftChessPiece = board.GetChessPieceForSpecificTile(x - 1, y);
+            var rightChessPiece = board.GetChessPieceForSpecificTile(x + 1, y);
+
+            if (leftChessPiece != null && !leftChessPiece.GetColor().Equals(selectedChessPieceColor))
+            {
+                possiblePositions.Add(new BoardPosition(x - 1, y, true));
+            }
+
+            if (rightChessPiece != null && !rightChessPiece.GetColor().Equals(selectedChessPieceColor))
+            {
+                possiblePositions.Add(new BoardPosition(x + 1, y, true));
+            }
         }
     }
 }
