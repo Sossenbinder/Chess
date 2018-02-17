@@ -90,7 +90,10 @@
     <Compile Include="Logic\BoardLogic\Board.cs" />
     <Compile Include="Logic\BoardLogic\BoardPosition.cs" />
     <Compile Include="Logic\GameState.cs" />
-    <Compile Include="Logic\Player.cs" />
+    <Compile Include="Logic\PlayerLogic\Graveyard.cs" />
+    <Compile Include="Logic\PlayerLogic\History.cs" />
+    <Compile Include="Logic\PlayerLogic\Move.cs" />
+    <Compile Include="Logic\PlayerLogic\Player.cs" />
     <Compile Include="Logic\BoardLogic\Tile.cs" />
     <Compile Include="MainWindow\MainWindowController.cs" />
     <Compile Include="MainWindow\MainWindowMetaData.cs" />

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SFMLChess.ChessPieces;
+using SFMLChess.Logic.PlayerLogic;
 
 namespace SFMLChess.Logic.BoardLogic
 {
@@ -9,14 +10,31 @@ namespace SFMLChess.Logic.BoardLogic
 
         private Tile[,] m_board;
 
-        private List<BoardPosition> m_validMovePositions = new List<BoardPosition>();
+        private List<BoardPosition> m_validMovePositions;
+
+        private Graveyard m_blackGraveyard;
+        private History m_blackHistory;
+
+        private Graveyard m_whiteGraveyard;
+        private History m_whiteHistory;
+
+        private bool m_isBlackActive;
         
-        public Board()
+        public Board(Graveyard blackGraveyard, History blackHistory, Graveyard whiteGraveyard, History whiteHistory)
         {
+            m_blackGraveyard = blackGraveyard;
+            m_blackHistory = blackHistory;
+            m_whiteGraveyard = whiteGraveyard;
+            m_whiteHistory = whiteHistory;
+
+            m_isBlackActive = false;
+
+            m_validMovePositions = new List<BoardPosition>();
+
             ResetBoard();
         }
 
-        private void ResetBoard(bool isWhiteTop = false)
+        public void ResetBoard(bool isWhiteTop = false)
         {
             m_board = new Tile[8, 8];
 
@@ -164,7 +182,6 @@ namespace SFMLChess.Logic.BoardLogic
                     return true;
                 }
             }
-
             return false;
         }
 
@@ -181,8 +198,10 @@ namespace SFMLChess.Logic.BoardLogic
 
             if (previousChessPieceOnNewTile != null)
             {
-                //Move to beaten chesspieces
+                //Move the beaten chesspieces
             }
+
+            m_isBlackActive = !m_isBlackActive;
         }
     }
 }
