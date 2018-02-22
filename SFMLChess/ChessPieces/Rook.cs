@@ -13,7 +13,7 @@ namespace SFMLChess.ChessPieces
         public Rook(ChessColor color) 
             : base(color)
         {
-            m_chessPieceName = "Rook";
+            m_chessPieceType = ChessPieceType.Rook;
             LoadTexture();
         }
 
@@ -21,7 +21,7 @@ namespace SFMLChess.ChessPieces
         {
             var boardPosition = tile.GetBoardPosition();
             var selectedChessPieceColor = tile.GetChessPiece().GetColor();
-            var possiblePositions = new List<BoardPosition>();
+            var validMovePositions = new List<BoardPosition>();
 
             var x = boardPosition.X;
             var y = boardPosition.Y;
@@ -36,12 +36,12 @@ namespace SFMLChess.ChessPieces
                 {
                     if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
                     {
-                        possiblePositions.Add(new BoardPosition(x, y, true));
+                        validMovePositions.Add(new BoardPosition(x, y, true));
                     }
                     break;
                 }
 
-                possiblePositions.Add(new BoardPosition(x, y));
+                validMovePositions.Add(new BoardPosition(x, y));
             }
 
             x = boardPosition.X;
@@ -57,12 +57,12 @@ namespace SFMLChess.ChessPieces
                 {
                     if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
                     {
-                        possiblePositions.Add(new BoardPosition(x, y, true));
+                        validMovePositions.Add(new BoardPosition(x, y, true));
                     }
                     break;
                 }
 
-                possiblePositions.Add(new BoardPosition(x, y));
+                validMovePositions.Add(new BoardPosition(x, y));
             }
 
             x = boardPosition.X;
@@ -78,12 +78,12 @@ namespace SFMLChess.ChessPieces
                 {
                     if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
                     {
-                        possiblePositions.Add(new BoardPosition(x, y, true));
+                        validMovePositions.Add(new BoardPosition(x, y, true));
                     }
                     break;
                 }
 
-                possiblePositions.Add(new BoardPosition(x, y));
+                validMovePositions.Add(new BoardPosition(x, y));
             }
 
             x = boardPosition.X;
@@ -99,15 +99,15 @@ namespace SFMLChess.ChessPieces
                 {
                     if (!chessPiece.GetColor().Equals(selectedChessPieceColor))
                     {
-                        possiblePositions.Add(new BoardPosition(x, y, true));
+                        validMovePositions.Add(new BoardPosition(x, y, true));
                     }
                     break;
                 }
 
-                possiblePositions.Add(new BoardPosition(x, y));
+                validMovePositions.Add(new BoardPosition(x, y));
             }
 
-            return new Moveset(possiblePositions);
+            return new Moveset(validMovePositions);
         }
     }
 }

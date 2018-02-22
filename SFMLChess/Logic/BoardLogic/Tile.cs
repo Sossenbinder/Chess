@@ -40,11 +40,6 @@ namespace SFMLChess.Logic.BoardLogic
             return m_chessPiece;
         }
 
-        public Moveset GetChessPieceMoveSet(Board board)
-        {
-            return m_chessPiece.GetMoveSetFromTile(this, board);
-        }
-
         public BoardPosition GetBoardPosition()
         {
             return m_boardPosition;

@@ -11,14 +11,22 @@ namespace SFMLChess.ChessPieces
     {
         private List<BoardPosition> m_moveSetPositions;
 
-        public Moveset(List<BoardPosition> moveSetPositions)
+        private SpecialMove m_specialMove;
+
+        public Moveset(List<BoardPosition> moveSetPositions, SpecialMove specialMove = SpecialMove.None)
         {
             m_moveSetPositions = moveSetPositions;
+            m_specialMove = specialMove;
         }
 
         public List<BoardPosition> GetMoveSetPositions()
         {
             return m_moveSetPositions;
+        }
+
+        public SpecialMove GetSpecialMove()
+        {
+            return m_specialMove;
         }
     }
 }

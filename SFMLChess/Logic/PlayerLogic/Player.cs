@@ -13,7 +13,8 @@ namespace SFMLChess.Logic.PlayerLogic
 
         public Player()
         {
-
+            m_graveyard = new Graveyard();
+            m_history = new History();
         }        
     }
 }

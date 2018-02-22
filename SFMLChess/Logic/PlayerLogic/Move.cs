@@ -18,6 +18,14 @@ namespace SFMLChess.Logic.PlayerLogic
             m_newPosition = newPosition;
         }
 
-        
+        public BoardPosition GetPreviousPosition()
+        {
+            return m_previousPosition;
+        }
+
+        public BoardPosition GetNewPosition()
+        {
+            return m_newPosition;
+        }
     }
 }

@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="ChessPieces\Bishop.cs" />
     <Compile Include="ChessPieces\ChessPiece.cs" />
+    <Compile Include="ChessPieces\ChessPieceType.cs" />
     <Compile Include="ChessPieces\King.cs" />
     <Compile Include="ChessPieces\Knight.cs" />
     <Compile Include="ChessPieces\Moveset.cs" />
@@ -87,8 +88,10 @@
     <Compile Include="ChessPieces\Queen.cs" />
     <Compile Include="ChessPieces\Rook.cs" />
     <Compile Include="ChessColor.cs" />
+    <Compile Include="ChessPieces\SpecialMove.cs" />
     <Compile Include="Logic\BoardLogic\Board.cs" />
     <Compile Include="Logic\BoardLogic\BoardPosition.cs" />
+    <Compile Include="Logic\BoardLogic\MoveInformation.cs" />
     <Compile Include="Logic\GameState.cs" />
     <Compile Include="Logic\PlayerLogic\Graveyard.cs" />
     <Compile Include="Logic\PlayerLogic\History.cs" />

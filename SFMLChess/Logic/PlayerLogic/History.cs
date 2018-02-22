@@ -15,7 +15,7 @@ namespace SFMLChess.Logic.PlayerLogic
             m_moves = new List<Move>();
         }
 
-        public List<Move> GetHistory()
+        public List<Move> GetMoveList()
         {
             return m_moves;
         }

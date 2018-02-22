@@ -13,14 +13,14 @@ namespace SFMLChess.ChessPieces
         public Knight(ChessColor color)
             : base(color)
         {
-            m_chessPieceName = "Knight";
+            m_chessPieceType = ChessPieceType.Knight;
             LoadTexture();
         }
 
         public override Moveset GetMoveSetFromTile(Tile tile, Board board)
         {
             var boardPosition = tile.GetBoardPosition();
-            var possiblePositions = new List<BoardPosition>();
+            var validMovePositions = new List<BoardPosition>();
             var selectedChessPieceColor = tile.GetChessPiece().GetColor();
 
             var x = boardPosition.X;
@@ -33,11 +33,11 @@ namespace SFMLChess.ChessPieces
                 
                 if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
                 {
-                    possiblePositions.Add(new BoardPosition(x - 1, y - 2, true));
+                    validMovePositions.Add(new BoardPosition(x - 1, y - 2, true));
                 }
                 else if(chessPiece == null)
                 {
-                    possiblePositions.Add(new BoardPosition(x - 1, y - 2));
+                    validMovePositions.Add(new BoardPosition(x - 1, y - 2));
                 }
             }
 
@@ -48,11 +48,11 @@ namespace SFMLChess.ChessPieces
 
                 if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
                 {
-                    possiblePositions.Add(new BoardPosition(x + 1, y - 2, true));
+                    validMovePositions.Add(new BoardPosition(x + 1, y - 2, true));
                 }
                 else if (chessPiece == null)
                 {
-                    possiblePositions.Add(new BoardPosition(x + 1, y - 2));
+                    validMovePositions.Add(new BoardPosition(x + 1, y - 2));
                 }
             }
 
@@ -63,11 +63,11 @@ namespace SFMLChess.ChessPieces
 
                 if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
                 {
-                    possiblePositions.Add(new BoardPosition(x - 2, y - 1, true));
+                    validMovePositions.Add(new BoardPosition(x - 2, y - 1, true));
                 }
                 else if (chessPiece == null)
                 {
-                    possiblePositions.Add(new BoardPosition(x - 2, y - 1));
+                    validMovePositions.Add(new BoardPosition(x - 2, y - 1));
                 }
             }
 
@@ -78,11 +78,11 @@ namespace SFMLChess.ChessPieces
 
                 if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
                 {
-                    possiblePositions.Add(new BoardPosition(x - 2, y + 1, true));
+                    validMovePositions.Add(new BoardPosition(x - 2, y + 1, true));
                 }
                 else if (chessPiece == null)
                 {
-                    possiblePositions.Add(new BoardPosition(x - 2, y + 1));
+                    validMovePositions.Add(new BoardPosition(x - 2, y + 1));
                 }
             }
 
@@ -93,11 +93,11 @@ namespace SFMLChess.ChessPieces
 
                 if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
                 {
-                    possiblePositions.Add(new BoardPosition(x - 1, y + 2, true));
+                    validMovePositions.Add(new BoardPosition(x - 1, y + 2, true));
                 }
                 else if (chessPiece == null)
                 {
-                    possiblePositions.Add(new BoardPosition(x - 1, y + 2));
+                    validMovePositions.Add(new BoardPosition(x - 1, y + 2));
                 }
             }
 
@@ -108,11 +108,11 @@ namespace SFMLChess.ChessPieces
 
                 if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
                 {
-                    possiblePositions.Add(new BoardPosition(x + 1, y + 2, true));
+                    validMovePositions.Add(new BoardPosition(x + 1, y + 2, true));
                 }
                 else if (chessPiece == null)
                 {
-                    possiblePositions.Add(new BoardPosition(x + 1, y + 2));
+                    validMovePositions.Add(new BoardPosition(x + 1, y + 2));
                 }
             }
 
@@ -123,11 +123,11 @@ namespace SFMLChess.ChessPieces
 
                 if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
                 {
-                    possiblePositions.Add(new BoardPosition(x + 2, y - 1, true));
+                    validMovePositions.Add(new BoardPosition(x + 2, y - 1, true));
                 }
                 else if (chessPiece == null)
                 {
-                    possiblePositions.Add(new BoardPosition(x + 2, y - 1));
+                    validMovePositions.Add(new BoardPosition(x + 2, y - 1));
                 }
             }
 
@@ -138,15 +138,15 @@ namespace SFMLChess.ChessPieces
 
                 if (chessPiece != null && !chessPiece.GetColor().Equals(selectedChessPieceColor))
                 {
-                    possiblePositions.Add(new BoardPosition(x + 2, y + 1, true));
+                    validMovePositions.Add(new BoardPosition(x + 2, y + 1, true));
                 }
                 else if (chessPiece == null)
                 {
-                    possiblePositions.Add(new BoardPosition(x + 2, y + 1));
+                    validMovePositions.Add(new BoardPosition(x + 2, y + 1));
                 }
             }
 
-            return new Moveset(possiblePositions);
+            return new Moveset(validMovePositions);
         }
     }
 }

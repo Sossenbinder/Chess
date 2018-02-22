@@ -18,7 +18,7 @@ namespace SFMLChess.Logic.BoardLogic
         private Graveyard m_whiteGraveyard;
         private History m_whiteHistory;
 
-        private bool m_isBlackActive;
+        private ChessColor m_activeColor;
         
         public Board(Graveyard blackGraveyard, History blackHistory, Graveyard whiteGraveyard, History whiteHistory)
         {
@@ -27,7 +27,7 @@ namespace SFMLChess.Logic.BoardLogic
             m_whiteGraveyard = whiteGraveyard;
             m_whiteHistory = whiteHistory;
 
-            m_isBlackActive = false;
+            m_activeColor = ChessColor.White;
 
             m_validMovePositions = new List<BoardPosition>();
 
@@ -129,6 +129,11 @@ namespace SFMLChess.Logic.BoardLogic
                 ClearSelection();
             }
 
+            if (tile.GetChessPiece() != null && !tile.GetChessPiece().GetColor().Equals(m_activeColor))
+            {               
+                return;
+            }
+
             m_selectedTile = m_selectedTile == tile ? null : tile;
 
             if (m_selectedTile != null)
@@ -194,14 +199,26 @@ namespace SFMLChess.Logic.BoardLogic
 
             tile.SetChessPiece(chessPieceToMove);
 
-            chessPieceToMove.Move();
+            var moveInformation = new Move(new BoardPosition(m_selectedTile.GetBoardPosition().X, m_selectedTile.GetBoardPosition().Y),
+                new BoardPosition(tile.GetBoardPosition().X, tile.GetBoardPosition().Y));
+
+            chessPieceToMove.Move(moveInformation);
 
             if (previousChessPieceOnNewTile != null)
             {
-                //Move the beaten chesspieces
+
             }
 
-            m_isBlackActive = !m_isBlackActive;
+            if(m_activeColor.Equals(ChessColor.White))
+            {
+                m_whiteHistory.AddMove(moveInformation);
+                m_activeColor = ChessColor.Black;
+            }
+            else
+            {
+                m_blackHistory.AddMove(moveInformation);
+                m_activeColor = ChessColor.White;
+            }
         }
     }
 }
