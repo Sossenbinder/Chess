@@ -10,6 +10,8 @@ namespace SFMLChess.Logic.BoardLogic
 
         private Tile[,] m_board;
 
+        //Moveset
+        private SpecialMove m_validSpecialMove;
         private List<BoardPosition> m_validMovePositions;
 
         private Graveyard m_blackGraveyard;
@@ -30,6 +32,7 @@ namespace SFMLChess.Logic.BoardLogic
             m_activeColor = ChessColor.White;
 
             m_validMovePositions = new List<BoardPosition>();
+            m_validSpecialMove = SpecialMove.None;
 
             ResetBoard();
         }
@@ -162,6 +165,7 @@ namespace SFMLChess.Logic.BoardLogic
             var selectedChessPiece = m_selectedTile.GetChessPiece();
             var moveSet = selectedChessPiece.GetMoveSetFromTile(m_selectedTile, this);
 
+            m_validSpecialMove = moveSet.GetSpecialMove();
             foreach(BoardPosition boardPos in moveSet.GetMoveSetPositions())
             {
                 m_validMovePositions.Add(boardPos);
@@ -172,6 +176,7 @@ namespace SFMLChess.Logic.BoardLogic
         {
             m_selectedTile.SetSelectionState(false);
             m_validMovePositions.Clear();
+            m_validSpecialMove = SpecialMove.None;
         }
 
         private bool IsNewSelectionMovable(Tile tile)
@@ -196,17 +201,37 @@ namespace SFMLChess.Logic.BoardLogic
             var previousChessPieceOnNewTile = tile.GetChessPiece();
 
             m_selectedTile.SetChessPiece(null);
-
-            tile.SetChessPiece(chessPieceToMove);
+            
+            //Convert pawn to queen if it got through
+            if(chessPieceToMove.GetChessPieceType() == ChessPieceType.Pawn /*TODO*/)
+            {
+                tile.SetChessPiece(chessPieceToMove);
+            }
+            else
+            {
+                tile.SetChessPiece(chessPieceToMove);
+            }
 
             var moveInformation = new Move(new BoardPosition(m_selectedTile.GetBoardPosition().X, m_selectedTile.GetBoardPosition().Y),
                 new BoardPosition(tile.GetBoardPosition().X, tile.GetBoardPosition().Y));
+
+            if(!m_validSpecialMove.Equals(SpecialMove.None))
+            {
+                CheckForSpecialMove(moveInformation);
+            }
 
             chessPieceToMove.Move(moveInformation);
 
             if (previousChessPieceOnNewTile != null)
             {
-
+                if (previousChessPieceOnNewTile.GetColor().Equals(ChessColor.Black))
+                {
+                    m_blackGraveyard.AddDeadChessPieces(previousChessPieceOnNewTile);
+                }
+                else
+                {
+                    m_whiteGraveyard.AddDeadChessPieces(previousChessPieceOnNewTile);
+                }
             }
 
             if(m_activeColor.Equals(ChessColor.White))
@@ -218,6 +243,19 @@ namespace SFMLChess.Logic.BoardLogic
             {
                 m_blackHistory.AddMove(moveInformation);
                 m_activeColor = ChessColor.White;
+            }
+        }
+
+        //Return boardposition of p 
+        private void CheckForSpecialMove(Move moveInformation)
+        {
+            var previousPos = moveInformation.GetPreviousPosition();
+            var newPos = moveInformation.GetNewPosition();
+
+            if(m_validSpecialMove.Equals(SpecialMove.EnPassant))
+            {
+                var passedPawnPos = m_board[newPos.X, previousPos.Y];
+                passedPawnPos.SetChessPiece(null);
             }
         }
     }

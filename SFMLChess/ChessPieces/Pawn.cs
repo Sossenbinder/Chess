@@ -103,7 +103,7 @@ namespace SFMLChess.ChessPieces
             {
                 var history = leftChessPiece.GetHistory().GetMoveList();
 
-                if(history == null)
+                if(history == null || history.Count == 0)
                 {
                     return specialMove;
                 }
@@ -121,13 +121,14 @@ namespace SFMLChess.ChessPieces
             if (rightChessPiece != null && !rightChessPiece.GetColor().Equals(selectedChessPieceColor))
             {
                 var history = rightChessPiece.GetHistory().GetMoveList();
-                var oldPos = history[0].GetPreviousPosition();
-                var newPos = history[0].GetNewPosition();
 
-                if (history == null)
+                if (history == null || history.Count == 0)
                 {
                     return specialMove;
                 }
+
+                var oldPos = history[0].GetPreviousPosition();
+                var newPos = history[0].GetNewPosition();
 
                 if (history.Count == 1 && newPos.Y == oldPos.Y + (m_color == ChessColor.White ? 2 : -2))
                 {
